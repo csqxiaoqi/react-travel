@@ -10,6 +10,7 @@ import sideImage from "../../assets/images/sider_2019_12-09.png";
 import sideImage2 from "../../assets/images/sider_2019_02-04.png";
 import sideImage3 from "../../assets/images/sider_2019_02-04-2.png";
 import styles from "./homePage.module.css";
+import { MainLayout } from "../../layout/mainLayout";
 import { withTranslation, WithTranslation } from "react-i18next";
 import { connect } from "react-redux";
 import { RootState } from "../../redux/store";
@@ -60,8 +61,7 @@ class HomePageComponent extends React.Component<PropState> {
     }
     return (
       <>
-        <Header />
-        <div className={styles["page-content"]}>
+        <MainLayout>
           <Row>
             <Col span={6}>
               <SideMenu />
@@ -97,9 +97,8 @@ class HomePageComponent extends React.Component<PropState> {
             sideImage={sideImage3}
             products={productList[2].touristRoutes}
           />
-        </div>
-        <BusinessPartners></BusinessPartners>
-        <Footer />
+          <BusinessPartners />
+        </MainLayout>
       </>
     );
   }

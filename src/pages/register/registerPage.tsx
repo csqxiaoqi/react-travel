@@ -1,6 +1,10 @@
 import React from "react";
-export const RegisterPage:React.FC = ()=>{
-    return(
-        <h1>注册</h1>
-    )
-}
+import { UserLayout } from "../../layout/userLayout";
+import { RegisterForm } from "./registerForm";
+export const RegisterPage: React.FC = () => {
+  return (
+    <UserLayout>
+      <RegisterForm />
+    </UserLayout>
+  );
+};

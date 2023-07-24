@@ -5,6 +5,7 @@ import { productDetailSlice } from "./productDetail/slice";
 import { productSearchSlice } from "./productSearch/slice";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { actionLog } from "./middlewares/actionLogs";
+import { userSlice } from "./user/slice";
 import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   recommendProducts: recommendProductsReducer,
   productDetail: productDetailSlice.reducer,
   productSearch: productSearchSlice.reducer,
+  user: userSlice.reducer,
 });
 // const store = createStore(rootReducer, applyMiddleware(thunk, actionLog));
 const store = configureStore({

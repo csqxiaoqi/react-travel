@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
+import { MainLayout } from "../../layout/mainLayout";
 import {
   Col,
   DatePicker,
@@ -60,9 +60,7 @@ export const DetailPage: React.FC = () => {
   }
   return (
     <>
-      <Header></Header>
-
-      <div className={styles["page-content"]}>
+      <MainLayout>
         {/* 产品简介与日期选择 */}
         <div className={styles["product-intro-container"]}>
           <Row>
@@ -143,8 +141,7 @@ export const DetailPage: React.FC = () => {
             <ProductComments data={commentMockData} />
           </div>
         </div>
-      </div>
-      <Footer />
+      </MainLayout>
     </>
   );
 };

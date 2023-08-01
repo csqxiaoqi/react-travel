@@ -9,19 +9,23 @@ import { useNavigate } from "react-router-dom";
 const SignInForm: React.FC = () => {
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.user.error);
-  const token = useSelector((state) => state.user.token);
+  const jwt = useSelector((state) => state.user.token);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (token) {
+    if (jwt !== null) {
       navigate("/");
     }
-  }, [token]);
+  }, [jwt]);
 
   const onFinish = (values: any) => {
-    dispatch(signIn({ email: values.username, password: values.passwprd }));
-    navigate("/");
+    dispatch(
+      signIn({
+        email: values.username,
+        password: values.password,
+      })
+    );
   };
 
   const onFinishFailed = (errorInfo: any) => {

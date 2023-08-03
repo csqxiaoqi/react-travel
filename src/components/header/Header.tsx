@@ -26,6 +26,10 @@ export const Header: React.FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [username, setUsername] = useState("");
+  const shoppingCartItems = useSelector((state) => state.shoppingCart.items);
+  const shoppingCartLoading = useSelector(
+    (state) => state.shoppingCart.loading
+  );
   useEffect(() => {
     if (jwt) {
       const token = jwt_decode<JwtPayload>(jwt);
@@ -68,11 +72,12 @@ export const Header: React.FC = () => {
                 <Typography.Text strong>{username}</Typography.Text>
               </span>
               <Button
+                loading={shoppingCartLoading}
                 onClick={() => {
                   navigate("/shoppingCart");
                 }}
               >
-                {t("header.shoppingCart")}
+                {t("header.shoppingCart")}({shoppingCartItems.length})
               </Button>
               <Button
                 onClick={() => {

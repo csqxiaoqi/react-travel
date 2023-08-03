@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import { Header, Footer } from "./components";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import {
@@ -7,9 +7,11 @@ import {
   DetailPage,
   HomePage,
   ShoppingCart,
+  PlaceOrder,
 } from "./pages";
-import { useSelector } from "./redux/hooks";
+import { useSelector, useAppDispatch } from "./redux/hooks";
 import { SearchPage } from "./pages";
+import { getShoppingCart } from "./redux/shoppingCart/slice";
 
 import styles from "./App.module.css";
 
@@ -19,6 +21,13 @@ const PrivateRoot = ({ children }) => {
 };
 
 function App() {
+  const jwt = useSelector((state) => state.user.token);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (jwt) {
+      dispatch(getShoppingCart(jwt));
+    }
+  }, [jwt]);
   return (
     <div className={styles.App}>
       <BrowserRouter>
@@ -33,6 +42,14 @@ function App() {
             element={
               <PrivateRoot>
                 <ShoppingCart></ShoppingCart>
+              </PrivateRoot>
+            }
+          />
+          <Route
+            path="/placeOrder"
+            element={
+              <PrivateRoot>
+                <PlaceOrder />
               </PrivateRoot>
             }
           />

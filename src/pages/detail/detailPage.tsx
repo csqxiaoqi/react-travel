@@ -10,10 +10,11 @@ import {
   Typography,
   Anchor,
   Menu,
+  Button,
 } from "antd";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { addShoppingCartItem } from "../../redux/shoppingCart/slice";
 import styles from "./detailPage.module.css";
-import { Header } from "../../components/header/Header";
-import { Footer } from "../../components/footer/Footer";
 import { ProductIntro } from "../../components/productIntro/productIntro";
 import { ProductComments } from "../../components/productComments/productComments";
 import { commentMockData } from "./mockup";
@@ -35,7 +36,10 @@ export const DetailPage: React.FC = () => {
   const error = useSelector((state) => state.productDetail.error);
   const product = useSelector((state) => state.productDetail.data);
   const dispatch = useAppDispatch();
-
+  const jwt = useSelector((state) => state.user.token) as string;
+  const shoppingCartLoading = useSelector(
+    (state) => state.shoppingCart.loading
+  );
   useEffect(() => {
     if (touristRouteId) {
       dispatch(getProductDetail(touristRouteId));
@@ -77,6 +81,25 @@ export const DetailPage: React.FC = () => {
               />
             </Col>
             <Col span={11}>
+              <Button
+                style={{
+                  marginTop: 50,
+                  marginBottom: 30,
+                  display: "block",
+                }}
+                type="primary"
+                danger
+                loading={shoppingCartLoading}
+                onClick={() => {
+                  dispatch(
+                    addShoppingCartItem({ jwt, touristRouteId: product.id })
+                  );
+                  // console.log(product.id);
+                }}
+              >
+                <ShoppingCartOutlined />
+                放入购物车
+              </Button>
               <RangePicker open style={{ marginTop: 20 }}></RangePicker>
             </Col>
           </Row>
